@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>California House Price Predictor</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 500px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        color: #fff;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .input-box {
+        display: flex;
+        align-items: center;
+        background: rgba(255,255,255,0.2);
+        padding: 8px;
+        border-radius: 8px;
+    }
+
+    .input-box i {
+        margin-right: 8px;
+    }
+
+    input {
+        width: 100%;
+        border: none;
+        outline: none;
+        background: transparent;
+        color: white;
+    }
+
+    input::placeholder {
+        color: #eee;
+    }
+
+    .full {
+        grid-column: span 2;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 15px;
+        border: none;
+        border-radius: 10px;
+        background: #00c9ff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #00a3cc;
+    }
+
+    .result {
+        margin-top: 15px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        background: rgba(0,0,0,0.3);
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    @media(max-width: 600px) {
+        .grid {
+            grid-template-columns: 1fr;
+        }
+        .full {
+            grid-column: span 1;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1><i class="fa-solid fa-house"></i> House Price Predictor</h1>
+
+    <form action="{{ url_for('predict')}}" method="post">
+
+        <div class="grid">
+
+            <div class="input-box"><i class="fa-solid fa-coins"></i>
+                <input type="text" name="MedInc" placeholder="MedInc" required>
+            </div>
+
+            <div class="input-box"><i class="fa-solid fa-calendar"></i>
+                <input type="text" name="HouseAge" placeholder="House Age" required>
+            </div>
+
+            <div class="input-box"><i class="fa-solid fa-door-open"></i>
+                <input type="text" name="AveRooms" placeholder="Avg Rooms" required>
+            </div>
+
+            <div class="input-box"><i class="fa-solid fa-bed"></i>
+                <input type="text" name="AveBedrms" placeholder="Avg Bedrooms" required>
+            </div>
+
+            <div class="input-box"><i class="fa-solid fa-users"></i>
+                <input type="text" name="Population" placeholder="Population" required>
+            </div>
+
+            <div class="input-box"><i class="fa-solid fa-user-group"></i>
+                <input type="text" name="AveOccup" placeholder="Avg Occupancy" required>
+            </div>
+
+            <div class="input-box"><i class="fa-solid fa-location-dot"></i>
+                <input type="text" name="Latitude" placeholder="Latitude" required>
+            </div>
+
+            <div class="input-box"><i class="fa-solid fa-location-arrow"></i>
+                <input type="text" name="Longitude" placeholder="Longitude" required>
+            </div>
+
+        </div>
+
+        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i> Predict Price</button>
+
+    </form>
+
+    {% if prediction_text %}
+    <div class="result">
+        {{ prediction_text }}
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
